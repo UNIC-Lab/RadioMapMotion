@@ -1,10 +1,10 @@
 # RadioMapMotion
 
-A dataset and benchmark for proactive spatio-temporal radio environment prediction in vehicular scenarios.
+A dataset and benchmark for proactive spatio-temporal radio environment prediction. This repository contains **RadioMotionNet**, a ConvLSTM-based UNet architecture for multi-step radio map prediction.
 
 ## Dataset
 
-The UrbanRadio-V dataset is available at:
+The RadioMapMotion dataset is available at:
 
 - [Google Drive (Part 1)](https://drive.google.com/file/d/1PvjnCHc9E3dBKN_34lwHv36g6cAsf4et/view?usp=sharing)
 - [Google Drive (Part 2)](https://drive.google.com/drive/folders/1lB9yj795gzIkuR3UKttQ4iSFthiyOhAz?usp=sharing)
@@ -39,9 +39,13 @@ Each sequence contains 8 context frames and 5 prediction frames.
 pip install torch torchvision pytorch-lightning torchmetrics einops scikit-image tqdm pyyaml
 ```
 
+## Model: RadioMotionNet
+
+RadioMotionNet is a UNet architecture incorporating ConvLSTM modules for spatio-temporal radio map prediction. It takes a historical context sequence of RMs as input and generates a future prediction sequence.
+
 ## Training
 
-1. Update `config.yaml`:
+1. Update `code/config.yaml`:
    - `data.dynamic_data_root`: path to dataset
    - `trainer_config.devices`: GPU devices
    - `callbacks.checkpoint.dirpath`: model save path
@@ -79,7 +83,7 @@ Evaluation metrics: NMSE, RMSE, PSNR, SSIM.
 ```bibtex
 @article{cheng2026radiomapmotion,
   title={RadioMapMotion: A Dataset and Benchmark for Proactive Spatio-Temporal Radio Environment Prediction},
-  author={Cheng, Nan and Jia, Haotian and Wang, Xiang and others},
+  author={Cheng, Nan and Jia, Honggang and Wang, Xiucheng and Peng, Haixia and Sun, Ruijin and Zhou, Conghao},
   journal={IEEE Transactions on Cognitive Communications and Networking},
   year={2026}
 }
