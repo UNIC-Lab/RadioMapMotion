@@ -6,8 +6,9 @@ A dataset and benchmark for proactive spatio-temporal radio environment predicti
 
 The RadioMapMotion dataset is available at:
 
-- [Google Drive (Part 1)](https://drive.google.com/file/d/1PvjnCHc9E3dBKN_34lwHv36g6cAsf4et/view?usp=sharing)
-- [Google Drive (Part 2)](https://drive.google.com/drive/folders/1lB9yj795gzIkuR3UKttQ4iSFthiyOhAz?usp=sharing)
+- [Google Drive (Part 1)](https://drive.google.com/file/d/1H4F8FpHd5Gw5cb_cKOM1hXwz-3FQjm3L/view?usp=sharing)
+- [Google Drive (Part 2)](https://drive.google.com/file/d/1xEf8uOHBAGN8QSQbRY37wbAucOk5zAF5/view?usp=sharing)
+- [Google Drive (Part 3)](https://drive.google.com/file/d/1PvjnCHc9E3dBKN_34lwHv36g6cAsf4et/view?usp=sharing)
 
 ### Dataset Structure
 
