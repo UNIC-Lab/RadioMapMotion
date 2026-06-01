@@ -1,0 +1,93 @@
+# ===================================================================
+# 数据集划分说明 (Dataset Split Description)
+# 
+# 数据集结构: 300个环境 (env) * 5个轨迹 (traj) * 20个发射器 (tx) * 15帧 (frames)
+# 每个序列包含 10 帧上下文帧和 5 帧预测帧，总计 15 帧。
+# 
+# 训练集 (Training Set):
+#   - 包含前250个环境(env_000-env_249)的 traj_00, traj_01, traj_02 (共3个轨迹)
+#   - 总序列数: 250 env * 3 traj/env * 20 tx/traj * 1 sequence/tx = 15000 序列
+#   - 总帧图片数: 15000 序列 * 15 帧/序列 = 225000 帧图片
+# 
+# 验证集 (Validation Set):
+#   - 包含前250个环境(env_000-env_249)的 traj_03 (共1个轨迹)
+#   - 总序列数: 250 env * 1 traj/env * 20 tx/traj * 1 sequence/tx = 5000 序列
+#   - 总帧图片数: 5000 序列 * 15 帧/序列 = 75000 帧图片
+# 
+# 测试集 (Test Set):
+#   - 包含前250个环境(env_000-env_249)的 traj_04 (共1个轨迹)
+#   - 总序列数: 250 env * 1 traj/env * 20 tx/traj * 1 sequence/tx = 5000 序列
+#   - 总帧图片数: 5000 序列 * 15 帧/序列 = 75000 帧图片
+# 
+# 新环境测试集 (New Environment Test Set):
+#   - 包含后50个环境(env_250-env_299)的所有5个轨迹 (traj_00-traj_04)
+#   - 总序列数: 50 env * 5 traj/env * 20 tx/traj * 1 sequence/tx = 5000 序列
+#   - 总帧图片数: 5000 序列 * 15 帧/序列 = 75000 帧图片
+# ===================================================================
+
+# ===================================================================
+# ConvLSTM U-Net Training Configuration
+# ===================================================================
+
+seed: 42
+
+# --- Data Parameters (for UrbanRadio-V Dataset) ---
+data:
+  dynamic_data_root: '/Data/hgjia/scr/RadioMotion/data'
+  prediction_frames: 5 # 保持5帧预测
+  context_frames: 8 # 修改为8帧输入
+  context_start_frame_idx: 2 # 新增：上下文帧起始索引，从原始序列的第2帧开始
+  num_environments: 250  # 参与训练的环境数量 (前250个环境，每个环境5个轨迹)
+  # 将 dataloader 参数分组，方便在训练和测试中复用
+  loader_params:
+    batch_size: 8 
+    shuffle: true
+    num_workers: 8
+  # loader_params:  # 测试时使用
+  #   batch_size: 1 
+  #   shuffle: true
+  #   num_workers: 1
+
+# --- Model Configuration (ConvLSTM_UNet) ---
+model:
+  in_channels: 1      # 每帧图像的通道数 (灰度图为1)
+  out_channels: 5     # 必须与 data.prediction_frames 匹配
+  embed_dim: 64       # 编码器第一层的隐藏通道数
+
+# --- Training Parameters ---
+training:
+  learning_rate: 0.001
+  loss_weights:
+    l1_weight: 0.0
+    mse_weight: 1.0
+    ssim_weight: 0.0
+
+# --- PyTorch Lightning Trainer Configuration ---
+trainer_config:
+  accelerator: 'gpu'
+  devices: [3]
+  precision: '16-mixed'
+  max_epochs: 1000
+  log_every_n_steps: 150
+
+# --- Callbacks ---
+callbacks:
+  checkpoint:
+    monitor: 'val_loss'
+    dirpath: '/Data/hgjia/scr/RadioMotion/model_resu/convlstm_unet/'
+    filename: 'best-convlstm-unet-{epoch}-{val_loss:.6f}'
+    save_top_k: 1
+    mode: 'min'
+  
+  early_stopping:
+    monitor: 'val_loss'
+    patience: 15
+    verbose: True
+    mode: 'min'
+
+# --- Logging ---
+logging:
+  tensorboard:
+    save_dir: "/Data/hgjia/scr/RadioMotion/log/"
+    name: "convlstm_unet_prediction"
+    version: 1
