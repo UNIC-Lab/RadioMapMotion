@@ -82,10 +82,13 @@ Evaluation metrics: NMSE, RMSE, PSNR, SSIM.
 ## Citation
 
 ```bibtex
-@article{cheng2026radiomapmotion,
-  title={RadioMapMotion: A Dataset and Benchmark for Proactive Spatio-Temporal Radio Environment Prediction},
+@ARTICLE{11488322,
   author={Cheng, Nan and Jia, Honggang and Wang, Xiucheng and Peng, Haixia and Sun, Ruijin and Zhou, Conghao},
   journal={IEEE Transactions on Cognitive Communications and Networking},
-  year={2026}
+  title={RadioMapMotion: A Dataset and Benchmark for Proactive Spatio-Temporal Radio Environment Prediction},
+  year={2026},
+  volume={12},
+  pages={7701-7715},
+  doi={10.1109/TCCN.2026.3685413}
 }
 ```
