@@ -6,7 +6,8 @@ A dataset and benchmark for proactive spatio-temporal radio environment predicti
 
 The UrbanRadio-V dataset is available at:
 
-[Google Drive](https://drive.google.com/file/d/1PvjnCHc9E3dBKN_34lwHv36g6cAsf4et/view?usp=sharing)
+- [Google Drive (Part 1)](https://drive.google.com/file/d/1PvjnCHc9E3dBKN_34lwHv36g6cAsf4et/view?usp=sharing)
+- [Google Drive (Part 2)](https://drive.google.com/drive/folders/1lB9yj795gzIkuR3UKttQ4iSFthiyOhAz?usp=sharing)
 
 ### Dataset Structure
 
